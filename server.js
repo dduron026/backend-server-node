@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const appRoutes = require('./routes/app');
+const usuarioRoutes = require('./routes/usuarios')
 
 const app = express();
 
@@ -8,18 +10,16 @@ const app = express();
 
 
 //RUTAS
-app.get('/', (req, res, next) => res.status(200).json({
+app.use('/usuarios', usuarioRoutes);
+app.use('/', appRoutes);
 
-        ok: true,
-        mensjae: 'todo funciona bien'
-}));
 
 var options = {
     useNewUrlParser: true
 }
 
 //CONEXION BD
-mongoose.connect('mongodb://localhost:27017/any', options,(err, res) => {
+mongoose.connect('mongodb://localhost:27017/hospitalDB', options,(err, res) => {
 
     if(err) throw err;
 
